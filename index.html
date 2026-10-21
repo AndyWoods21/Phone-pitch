@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ffffff">
+<title>Project Deep Blue: a proposal for Mom</title>
+<style>
+:root{
+  --ink:#0a1633;--soft:#4f5e7b;--blue:#1750e8;--deep:#0c2a73;--gold:#f5a800;--goldtint:#fff5da;--tint:#f2f6fe;--line:#dde5f3;
+  --serif:"Iowan Old Style","Palatino Linotype",Georgia,serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:#fff;color:var(--ink);font:17px/1.55 var(--sans);overflow-x:hidden}
+.shell{max-width:520px;margin:0 auto;background:#fff;min-height:100vh;padding-bottom:calc(92px + env(safe-area-inset-bottom,0px));position:relative}
+@media(min-width:600px){.shell{border-left:1px solid var(--line);border-right:1px solid var(--line)}}
+.pad{padding:0 22px}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+h1,h2,h3{font-family:var(--serif);font-weight:700;letter-spacing:-.02em;line-height:1.1}
+h1{font-size:2.35rem;margin-bottom:16px}
+h2{font-size:1.85rem;margin-bottom:12px}
+h3{font-size:1.2rem;margin-bottom:6px}
+.lead{color:var(--soft);font-size:1.05rem}
+section{padding:52px 0}
+.btn{display:flex;align-items:center;justify-content:center;min-height:52px;width:100%;border:2px solid var(--ink);border-radius:999px;padding:12px 22px;font:700 1rem var(--sans);background:#fff;color:var(--ink);text-decoration:none;cursor:pointer;transition:transform .15s,background .2s}
+.btn:active{transform:scale(.97)}
+.btn.fill{background:var(--blue);border-color:var(--blue);color:#fff}
+.stack{display:grid;gap:12px;margin-top:24px}
+
+/* hero */
+.hero{position:relative;overflow:hidden;padding:calc(18px + env(safe-area-inset-top,0px)) 0 44px}
+.hero::before{content:"";position:absolute;right:-150px;top:150px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#cfe0ff,#eaf1ff 55%,transparent 70%);z-index:-1}
+.brand{font-weight:800;padding-bottom:26px;display:flex;justify-content:space-between;align-items:baseline}
+.brand small{font-weight:500;color:var(--soft);font-size:.8rem}
+.stage{display:grid;place-items:center;height:330px;margin:6px 0 22px}
+.phone{width:168px;height:328px;border-radius:34px;border:5px solid #18233f;background:radial-gradient(ellipse at 78% 22%,#5b8dff,transparent 42%),radial-gradient(ellipse at 18% 80%,#0a3fb0,transparent 50%),linear-gradient(150deg,#1c4fc4,#071a4d 85%);box-shadow:0 34px 50px -20px rgba(12,42,115,.5);position:relative;transform:rotate(-8deg);animation:sway 6s ease-in-out infinite}
+.phone::before{content:"";position:absolute;top:9px;left:50%;width:54px;height:16px;margin-left:-27px;border-radius:20px;background:#050b1c}
+.lenses{position:absolute;top:28px;left:16px;display:grid;grid-template-columns:34px 34px;gap:7px;padding:7px;border-radius:20px;background:rgba(255,255,255,.1)}
+.lenses i{width:34px;height:34px;border-radius:50%;background:radial-gradient(circle,#06142e 22%,#3c78b8 44%,#030814 66%);border:3px solid #8aa0c4}
+.lenses i:nth-child(3){grid-column:1}
+.lenses i:nth-child(4){width:18px;height:18px;margin:8px}
+.phone b{position:absolute;bottom:22px;width:100%;text-align:center;font-size:.66rem;letter-spacing:.25em;color:#d6e6ff;font-weight:600}
+@keyframes sway{50%{transform:rotate(-5deg) translateY(-10px)}}
+
+/* ask */
+.ask{background:var(--ink);color:#fff;padding:34px 0}
+.ask p{font-family:var(--serif);font-size:1.4rem;line-height:1.3}
+.ask em{font-style:normal;color:#ffd470}
+
+/* ribbon */
+.ribbon{background:var(--tint)}
+.grid72{margin:26px 0 16px;display:grid;gap:8px}
+.yr{display:grid;grid-template-columns:44px 1fr;gap:8px;align-items:center;font-size:.78rem;font-weight:700}
+.cells{display:grid;grid-template-columns:repeat(12,1fr);gap:3px}
+.cells i{height:24px;border-radius:5px;background:#d3def5;transition:background .45s}
+.go .cells i.a{background:var(--blue);transition-delay:calc(var(--n)*22ms)}
+.go .cells i.b{background:var(--gold);transition-delay:calc(var(--n)*22ms)}
+.key{display:grid;gap:8px;font-size:.92rem;color:var(--soft)}
+.key span::before{content:"";display:inline-block;width:14px;height:14px;border-radius:4px;margin-right:9px;vertical-align:-2px;background:var(--blue)}
+.key span.g::before{background:var(--gold)}
+.sums{margin-top:30px;border-top:2px solid var(--ink)}
+.sums div{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}
+.sums strong{font-family:var(--serif);font-size:1.7rem;letter-spacing:-.03em;white-space:nowrap}
+.sums span{color:var(--soft);font-size:.92rem;text-align:right}
+
+/* options */
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:4px;border-radius:999px;background:var(--tint);margin:24px 0 18px}
+.seg button{min-height:48px;border:0;border-radius:999px;background:none;font:700 .98rem var(--sans);color:var(--soft);cursor:pointer;transition:background .2s,color .2s}
+.seg button[aria-selected=true]{background:var(--blue);color:#fff}
+.plan{border:2px solid var(--blue);border-radius:26px;padding:26px 22px;box-shadow:0 18px 36px -24px rgba(23,80,232,.6)}
+.plan .tag{color:var(--blue);font-weight:700;font-size:.9rem;margin-bottom:6px}
+.price{font-family:var(--serif);font-size:2.9rem;font-weight:700;letter-spacing:-.03em;line-height:1.05;margin-top:10px}
+.price small{font:500 .9rem var(--sans);letter-spacing:0;color:var(--soft)}
+.total{font-weight:700;margin:4px 0 16px}
+.plan ul{list-style:none;display:grid;gap:11px;margin-bottom:20px;color:#2b3a58;font-size:.97rem}
+.plan li{padding-left:26px;position:relative}
+.plan li::before{content:"✓";position:absolute;left:0;color:var(--blue);font-weight:800}
+.gain{border-radius:16px;padding:16px 18px;background:var(--goldtint);font-size:.92rem}
+.gain.plain{background:var(--tint)}
+.gain strong{display:block;font-family:var(--serif);font-size:1.6rem;line-height:1.2}
+.vs{margin-top:28px;border-top:2px solid var(--ink);font-size:.95rem}
+.vs div{display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:8px;padding:13px 0;border-bottom:1px solid var(--line)}
+.vs .h{font-family:var(--serif);font-weight:700;font-size:1.02rem}
+.vs div>span:first-child{font-weight:700}
+
+/* pledges */
+.safe{background:var(--tint)}
+details{border-bottom:1px solid #cfdaf0}
+details:first-of-type{border-top:2px solid var(--ink);margin-top:24px}
+summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:60px;font:700 1.05rem var(--sans);cursor:pointer;padding:10px 0}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-size:1.5rem;color:var(--blue);transition:transform .25s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{color:var(--soft);padding:0 0 18px;font-size:.98rem}
+
+/* pitch */
+.pitch{text-align:center}
+.pitch blockquote{margin:22px 0;text-align:left;font-family:var(--serif);font-size:1.15rem;line-height:1.7}
+.pitch blockquote p+p{margin-top:1em}
+.sig{font-family:var(--serif);font-style:italic;font-size:1.25rem;color:var(--blue);margin-bottom:6px}
+#status{min-height:1.5em;margin-top:14px;color:var(--soft);font-size:.9rem}
+.fine{margin-top:26px;color:#667491;font-size:.8rem}
+footer{text-align:center;color:var(--soft);font-size:.82rem;padding:6px 22px 20px}
+
+/* sticky action bar */
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:5;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px))}
+.bar-in{max-width:520px;margin:auto;display:flex;align-items:center;gap:12px}
+.bar-info{flex:1;min-width:0;line-height:1.25}
+.bar-info b{display:block;font-size:.98rem}
+.bar-info span{font-size:.8rem;color:var(--soft)}
+.bar .btn{width:auto;flex:none;min-height:48px;padding:10px 20px;font-size:.95rem}
+
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+@media print{.bar,.stage,.btn{display:none}.shell{padding-bottom:0}.ask{background:#fff;color:#000}.ask em{color:#000}}
+</style>
+</head>
+<body>
+<div class="shell">
+
+<header class="hero">
+  <div class="pad">
+    <div class="brand"><span>Project Deep Blue</span><small>From your son, with love</small></div>
+    <div class="stage" aria-hidden="true"><div class="phone"><div class="lenses"><i></i><i></i><i></i><i></i></div><b>DEEP BLUE</b></div></div>
+    <h1>Mom, I’d like to ask for something big, and show you how I’ll carry it.</h1>
+    <p class="lead">For my 23rd year, I want an iPhone 17 Pro in Deep Blue on your Vodacom account. You’d be lending me your name, so I’ve done the maths, built two options and written down how I’ll protect you.</p>
+    <div class="stack">
+      <a class="btn fill" href="#options">See the two options</a>
+      <a class="btn" href="#safeguards">How I’ll protect you</a>
+    </div>
+  </div>
+</header>
+
+<div class="ask"><div class="pad"><p>What I’m asking: <em>your trust and your signature.</em> What I’m offering: <em>every payment, on time, in writing</em>, and a thank-you that lasts three more years.</p></div></div>
+
+<main>
+<section class="ribbon">
+  <div class="pad">
+    <h2>Six years, one payment you can count on.</h2>
+    <p class="lead">Option 1 in one picture. Each square is a month at R1,099. Blue pays for the phone. Gold goes straight to you.</p>
+    <div class="grid72" id="grid72" aria-label="72 monthly payments: 36 for the phone, then 36 paid to Mom"></div>
+    <div class="key"><span>Months 1–36: I pay for the phone</span><span class="g">Months 37–72: I pay you directly</span></div>
+    <div class="sums">
+      <div><strong>R1,099</strong><span>every month for 72 months</span></div>
+      <div><strong>R79,128</strong><span>total I commit to paying</span></div>
+      <div><strong>R39,564</strong><span>paid to you in years 4 to 6</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="options">
+  <div class="pad">
+    <h2>Two ways to do this. You choose.</h2>
+    <p class="lead">Both put the payments on me. They differ in how long I’m committed and what comes back to you.</p>
+    <div class="seg" role="tablist" aria-label="Payment options">
+      <button role="tab" id="t1" aria-selected="true" onclick="pick(1)">Option 1</button>
+      <button role="tab" id="t2" aria-selected="false" onclick="pick(2)">Option 2</button>
+    </div>
+    <article class="plan" id="plan" role="tabpanel" aria-live="polite"></article>
+
+    <div class="vs" aria-label="Side by side comparison">
+      <div class="h"><span></span><span>Option 1</span><span>Option 2</span></div>
+      <div><span>Monthly</span><span>R1,099</span><span>R1,649</span></div>
+      <div><span>Length</span><span>72 months</span><span>36 months</span></div>
+      <div><span>Total from me</span><span>R79,128</span><span>R59,364</span></div>
+      <div><span>To you</span><span>R39,564</span><span>Both phones paid</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="safe" id="safeguards">
+  <div class="pad">
+    <h2>Your name is on the line, so here’s how I’ll protect it.</h2>
+    <p class="lead">Tap each promise. Add to them or change them. Tell me what would make you more comfortable.</p>
+    <details><summary>I pay a day early</summary><p>I’ll set up an automatic transfer so the money reaches you before the debit order leaves your account.</p></details>
+    <details><summary>You get proof every month</summary><p>A payment confirmation from me each month, so you never have to chase or wonder.</p></details>
+    <details><summary>Everything in writing</summary><p>The amounts, dates and what happens if I miss a payment go on one page, and we both keep a copy.</p></details>
+    <details><summary>You can step in</summary><p>If I ever fall behind, you’re free to pause or stop the arrangement and I’ll settle what’s owed.</p></details>
+    <details><summary>Check-in every six months</summary><p>We sit down, look at the numbers together and fix anything that isn’t working.</p></details>
+    <details><summary>Real terms confirmed first</summary><p>Before signing, we confirm the actual price, contract length and fees with Vodacom together.</p></details>
+  </div>
+</section>
+
+<section class="pitch" id="pitch">
+  <div class="pad">
+    <h2>Mom, can we make this happen?</h2>
+    <blockquote>
+      <p>I know using your account means trusting me with your name and your finances. I never want this to become a burden on you.</p>
+      <p>As I turn 23, I want to treat myself and also show you that I can keep a long commitment. That’s why I’ve brought two options instead of one demand.</p>
+      <p>Whichever you pick, I’ll make every payment we agree on and confirm every detail with you first.</p>
+    </blockquote>
+    <div class="sig">Same family. Bigger goals.</div>
+    <div class="stack">
+      <button class="btn fill" onclick="copyPitch()">Copy my message to Mom</button>
+      <button class="btn" onclick="window.print()">Print this proposal</button>
+    </div>
+    <p id="status" aria-live="polite"></p>
+    <p class="fine">This page is a personal proposal, not a Vodacom offer or a binding agreement. All figures are estimates from the amounts supplied. Confirm the iPhone price, contract length, the remaining Samsung term, fees and affordability with Vodacom before signing.</p>
+  </div>
+</section>
+</main>
+
+<footer>Project Deep Blue, made with love</footer>
+
+<div class="bar">
+  <div class="bar-in">
+    <div class="bar-info"><b id="barTitle">Option 1: R1,099 a month</b><span id="barSub">72 months, R79,128 in total</span></div>
+    <button class="btn fill" onclick="copyPitch()">Copy message</button>
+  </div>
+</div>
+
+</div>
+
+<script>
+(function(){
+  var g=document.getElementById('grid72'),n=0,h='';
+  for(var y=1;y<=6;y++){
+    h+='<div class="yr"><span>Yr '+y+'</span><div class="cells">';
+    for(var m=0;m<12;m++){n++;h+='<i class="'+(n<=36?'a':'b')+'" style="--n:'+n+'"></i>';}
+    h+='</div></div>';
+  }
+  g.innerHTML=h;
+  var run=function(){g.classList.add('go')};
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(e){if(e[0].isIntersecting){run();io.disconnect();}},{threshold:.3});
+    io.observe(g);
+  }else run();
+})();
+
+var PLANS={
+ 1:{tag:'Option 1: the long way, with a thank-you',title:'R1,099 a month for 72 months',price:'R1,099',unit:'/ month',total:'R79,128 over six years',
+    items:['Months 1–36: I pay the iPhone contract.','Months 37–72: I keep paying R1,099, now directly to you.','The extra payments are a separate agreement, not a contract extension.'],
+    gainLabel:'What comes back to you',gain:'R39,564',gainNote:'36 payments of R1,099 in years 4 to 6.',plain:false,
+    bar:'Option 1: R1,099 a month',sub:'72 months, R79,128 in total'},
+ 2:{tag:'Option 2: the short way, both phones',title:'I cover both contracts for 3 years',price:'R1,649',unit:'/ month combined',total:'R59,364 over 36 months',
+    items:['Samsung A55: R550 a month.','iPhone 17 Pro: R1,099 a month.','Finished in three years, subject to the real contract terms and how long the Samsung contract still has to run.'],
+    gainLabel:'What changes for you',gain:'Two bills off your plate',gainNote:'Both phone payments become mine.',plain:true,
+    bar:'Option 2: R1,649 a month',sub:'36 months, R59,364 in total'}
+};
+function pick(n){
+  var p=PLANS[n];
+  document.getElementById('t1').setAttribute('aria-selected',n===1);
+  document.getElementById('t2').setAttribute('aria-selected',n===2);
+  document.getElementById('plan').innerHTML=
+   '<div class="tag">'+p.tag+'</div><h3>'+p.title+'</h3>'+
+   '<div class="price">'+p.price+' <small>'+p.unit+'</small></div><div class="total">'+p.total+'</div>'+
+   '<ul>'+p.items.map(function(i){return '<li>'+i+'</li>'}).join('')+'</ul>'+
+   '<div class="gain'+(p.plain?' plain':'')+'"><span>'+p.gainLabel+'</span><strong>'+p.gain+'</strong>'+p.gainNote+'</div>';
+  document.getElementById('barTitle').textContent=p.bar;
+  document.getElementById('barSub').textContent=p.sub;
+}
+pick(1);
+
+async function copyPitch(){
+  var chosen=document.getElementById('t2').getAttribute('aria-selected')==='true'?2:1;
+  var t='Mom, for my 23rd birthday I’d love to get an iPhone 17 Pro in Deep Blue on your Vodacom account, and I want to show you how I’ll carry it.\n\n'+
+  'Option 1: I pay R1,099 a month for 72 months. After the first 36 months I keep paying R1,099 directly to you for 36 more months, R39,564 in total.\n\n'+
+  'Option 2: I cover both my Samsung A55 (R550) and the iPhone (R1,099) for three years, R1,649 a month.\n\n'+
+  'I’m leaning towards Option '+chosen+'. I’ll pay a day early, send proof each month, put it in writing and check in with you every six months. Can we look at the real contract terms together and pick what works best for you?';
+  var st=document.getElementById('status');
+  try{
+    if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(t);}
+    else{var a=document.createElement('textarea');a.value=t;a.style.cssText='position:fixed;opacity:0';document.body.appendChild(a);a.select();var ok=document.execCommand('copy');a.remove();if(!ok)throw 0;}
+    st.textContent='Copied. Paste it into a message to Mom.';
+  }catch(e){st.textContent='Copy didn’t work here. Select the message above and copy it by hand.';}
+  document.getElementById('pitch').scrollIntoView({behavior:'smooth',block:'start'});
+}
+</script>
+</body>
+</html>
